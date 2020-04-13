@@ -23,7 +23,7 @@ return [
             // 服务器地址
             'hostname'          => env('database.hostname', '127.0.0.1'),
             // 数据库名
-            'database'          => env('database.database', 'creeper_ds918_top'),
+            'database'          => env('database.database', 'creeper_ds918_to'),
             // 用户名
             'username'          => env('database.username', 'root'),
             // 密码
