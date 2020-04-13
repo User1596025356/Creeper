@@ -1,0 +1,2 @@
+register:
+    POST:username,password,sex,address,telephone
