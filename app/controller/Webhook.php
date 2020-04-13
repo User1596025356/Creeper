@@ -28,6 +28,6 @@ class Webhook
             }
         }
 
-        http_response_code(408);
+        http_response_code(404);
     }
 }
