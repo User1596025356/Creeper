@@ -14,8 +14,6 @@ Route::get('think', function () {
     return 'hello,ThinkPHP6!';
 });
 
-Route::get('hello/:name', 'index/hello');
-Route::get('api/:version/hh/:name', ':version.Test/hh');
 Route::get('api/:version/getToken', ':version.Test/getToken');
 Route::get('api/:version/checkToken', ':version.Test/check');
 Route::post('api/:version/AddUser', ':version.User/register');
