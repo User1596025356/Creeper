@@ -17,4 +17,5 @@ Route::get('think', function () {
 
 Route::get('api/:version/getProductsInfo',':version.Products/getProductsInfo');
 Route::get('api/:version/banner',':version.Banner/getBanner');
+Route::get('api/:version/getRecentProduct',':version.Product/getRecent');
 Route::rule('webhook','Webhook/githook');

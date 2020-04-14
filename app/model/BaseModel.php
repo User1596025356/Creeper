@@ -11,5 +11,5 @@ class BaseModel extends Model
 {
     use SoftDelete;
 
-    protected $hidden = ['delete_time','create_time','update_time'];
+    protected $hidden = ['delete_time','update_time'];
 }
