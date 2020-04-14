@@ -5,12 +5,13 @@ namespace app\controller\v1;
 
 
 use app\exception\MissException;
+use app\model\BaseModel;
 use app\validate\Count;
 use app\validate\IDMustBeNumber;
-use app\validate\IDMustBePositiveInt;
+use app\validate\Page;
 use think\facade\Request;
 use app\model\Product as ProductsModel;
-class Product
+class Product extends BaseModel
 {
     public function getProductsInfo(){
         $validate = new IDMustBeNumber();
@@ -28,20 +29,41 @@ class Product
         return $products;
     }
 
-    public function getRecent($count = 15){
-        $validate = new Count();
-        $validate->goCheck();
-
-        $data = Request::only(['count']);
-        $products = ProductsModel::getMostRecent($data['count']);
-        if($products->isEmpty())
+    public function getRecent(){
+        if(Request::has('count'))
         {
-            throw new MissException([
-                'msg' => '商品列表为空',
-                'errorCode' => 40001,
-            ]);
+            $validate = new Count();
+            $validate->goCheck();
+
+            $data = Request::only(['count']);
+            $products = ProductsModel::getMostRecent($data['count']);
+
+            if($products->isEmpty())
+            {
+                throw new MissException([
+                    'msg' => '商品列表为空',
+                    'errorCode' => 40001,
+                ]);
+            }
+            return json($products);
         }
-        return json($products);
+        else{
+            $validate = new Page();
+            $validate->goCheck();
+
+            $data = Request::only(['paginate','page','listrows']);
+            $products = ProductsModel::getRecentProduct($data['paginate'],$data['page'],$data['listrows']);
+
+            if(!$products)
+            {
+                throw new MissException([
+                    'msg' => '商品列表为空',
+                    'errorCode' => 40001,
+                ]);
+            }
+            return json($products);
+        }
+
     }
 
 }
