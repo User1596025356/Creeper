@@ -72,7 +72,7 @@ class UserToken extends Token
 
     private function saveToCache($cachedValue)
     {
-        $key = self::generateToken();
+        $key = self::generateToken($cachedValue['uid']);
         $value = json_encode($cachedValue);
         $expire_in = config('token.exp');
         $result = cache($key, $value, $expire_in);

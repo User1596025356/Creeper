@@ -12,12 +12,12 @@ use think\facade\Request;
 
 class Token
 {
-    public static function generateToken()
+    public static function generateToken($uid)
     {
         $key = config('token.key');  //这里是自定义的一个随机字串，应该写在config文件中的，解密时也会用，相当于加密中常用的盐salt
         $token = [
-            "iss"=>"",  //签发者 可以为空
-            "aud"=>"", //面象的用户，可以为空
+            "iss" => "",  //签发者 可以为空
+            "aud" => $uid, //面象的用户，可以为空
             "iat" => time(), //签发时间
             "nbf" => time()+config('token.nbf'), //在什么时候jwt开始生效
             "exp" => time()+config('token.exp'), //token 过期时间
