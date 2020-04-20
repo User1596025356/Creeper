@@ -19,7 +19,9 @@
         "php": ">=7.1.0",
         "topthink/framework": "^6.0.0",
         "topthink/think-orm": "^2.0",
-        "firebase/php-jwt": "^5.0"
+        "firebase/php-jwt": "^5.0",
+      "ext-curl": "*",
+      "ext-json": "*"
     },
     "require-dev": {
         "symfony/var-dumper": "^4.2",

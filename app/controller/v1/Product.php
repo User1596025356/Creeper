@@ -5,13 +5,12 @@ namespace app\controller\v1;
 
 
 use app\exception\MissException;
-use app\model\BaseModel;
 use app\validate\Count;
 use app\validate\IDMustBeNumber;
 use app\validate\Page;
 use think\facade\Request;
 use app\model\Product as ProductsModel;
-class Product extends BaseModel
+class Product
 {
     public function getProductsInfo(){
         $validate = new IDMustBeNumber();

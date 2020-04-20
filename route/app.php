@@ -19,3 +19,5 @@ Route::get('api/:version/getProductsInfo',':version.Products/getProductsInfo');
 Route::get('api/:version/banner',':version.Banner/getBanner');
 Route::get('api/:version/getRecentProduct',':version.Product/getRecent');
 Route::rule('webhook','Webhook/githook');
+Route::post('api/:version/token/user',':version.Token/getToken');
+Route::get('api/:version/testToken',':version.Test/testToken');

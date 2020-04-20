@@ -10,8 +10,8 @@ class User extends BaseModel
 
     protected $hidden = ['id','openid','create_time','update_time','delete_time'];
 
-    public static function getByUid($uid)
+    public static function getByOpenid($openid)
     {
-        return User::where('uid','=',$uid)->find();
+        return User::where('openid','=',$openid)->find();
     }
 }

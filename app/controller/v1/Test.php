@@ -1,34 +1,22 @@
 <?php
 namespace app\controller\v1;
 
-use app\BaseController;
-use app\service\Token;
+use app\exception\UserException;
+use app\service\Token as TokenService;
+use app\validate\TestToken;
 use think\facade\Request;
+use app\model\User as UserModel;
 
-class Test extends BaseController
+class Test
 {
-    public function hh($name = 'shishikan')
+    public function testToken()
     {
-        return 'hh,'.$name;
-        
-    }
-
-    public function getToken()
-    {
-        $app = new Token();
-        $token = $app->generateToken();
-        return json([
-            'token' => $token
-        ]);
-    }
-
-    public function check()
-    {
-//        $isget = \think\Request::param('token');
-        $token = Request::param('token');
-        $app = Token::checkToken($token);
-        return json([
-
-        ]);
+        (new TestToken())->gocheck();
+        $uid = TokenService::getCurrentUid();
+        $user = UserModel::where('id',$uid)->find();
+        if(!$user){
+            throw new UserException();
+        }
+        return json($user);
     }
 }
