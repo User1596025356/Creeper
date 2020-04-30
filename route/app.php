@@ -21,3 +21,5 @@ Route::get('api/:version/getRecentProduct',':version.Product/getRecent');
 Route::rule('webhook','Webhook/githook');
 Route::post('api/:version/token/user',':version.Token/getToken');
 Route::get('api/:version/testToken',':version.Test/testToken');
+Route::get('api/:version/productdetail','api/:version.Product/getOne');
+Route::post('api/:version/addProduct','api/:version.Product/addOne');

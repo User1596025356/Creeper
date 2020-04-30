@@ -5,9 +5,14 @@ namespace app\controller\v1;
 
 
 use app\exception\MissException;
+use app\exception\ProductException;
+use app\validate\AddProduct;
 use app\validate\Count;
 use app\validate\IDMustBeNumber;
+use app\validate\IDMustBePositiveInt;
 use app\validate\Page;
+use Cassandra\Exception\ProtocolException;
+use think\facade\Filesystem;
 use think\facade\Request;
 use app\model\Product as ProductsModel;
 class Product
@@ -62,7 +67,25 @@ class Product
             }
             return json($products);
         }
-
     }
 
+    public function getOne($id)
+    {
+        (new IDMustBePositiveInt())->goCheck();
+        $product = ProductsModel::getProductDetail($id);
+        if(!$product){
+            throw new ProductException();
+        }
+        return json($product);
+    }
+
+    public function addOne($name,$price,$summary)
+    {
+        (new AddProduct())->goCheck();
+        $images = request()->file();
+        $savename = [];
+        foreach ($images as $image){
+            $savename[] = Filesystem::putFile('images', $image, 'md5');
+        }
+    }
 }

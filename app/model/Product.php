@@ -17,6 +17,11 @@ class Product extends BaseModel
         return $this->belongsTo('User','user_id','id');
     }
 
+    public function imgs()
+    {
+        return $this->hasMany('ProductImage','product_id','id');
+    }
+
     public static function getByPid($id)
     {
         return Product::where('id','=',$id)->find();
@@ -38,5 +43,12 @@ class Product extends BaseModel
     {
         $products = self::limit($count)->order('create_time desc')->with('userinfo')->select();
         return $products;
+    }
+
+    public static function getProductDetail($id)
+    {
+        //返回imgs顺序需要自动调整
+        $product = self::with('imgs.imgUrl')->find($id);
+        return $product;
     }
 }
