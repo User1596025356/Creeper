@@ -12,6 +12,7 @@ use app\validate\IDMustBeNumber;
 use app\validate\IDMustBePositiveInt;
 use app\validate\Page;
 use Cassandra\Exception\ProtocolException;
+use think\exception\ValidateException;
 use think\facade\Filesystem;
 use think\facade\Request;
 use app\model\Product as ProductsModel;
@@ -79,13 +80,23 @@ class Product
         return json($product);
     }
 
-    public function addOne($name,$price,$summary)
+    public function addOne()
     {
-        (new AddProduct())->goCheck();
-        $images = request()->file();
-        $savename = [];
-        foreach ($images as $image){
-            $savename[] = Filesystem::putFile('images', $image, 'md5');
+//        (new AddProduct())->goCheck();
+        $image = request()->file('image');
+        try {
+            validate(['image'=>[
+                'fileSize' => 410241024,
+                'fileExt' => 'jpg,jpeg,png,bmp,gif',
+                'fileMime' => 'image/jpeg,image/png,image/gif',
+            ]])->check(['image'=>$image]);
+            $savename = Filesystem::putFile('images', $image, 'md5');
+            return json([
+                'ImgUrl' => $savename
+            ]);
+        }catch(ValidateException $e){
+            return json($e->getMessage());
         }
+
     }
 }
