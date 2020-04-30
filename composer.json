@@ -21,7 +21,8 @@
         "topthink/think-orm": "^2.0",
         "firebase/php-jwt": "^5.0",
       "ext-curl": "*",
-      "ext-json": "*"
+      "ext-json": "*",
+      "ext-cassandra": "*"
     },
     "require-dev": {
         "symfony/var-dumper": "^4.2",

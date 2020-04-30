@@ -11,11 +11,13 @@ use app\validate\Count;
 use app\validate\IDMustBeNumber;
 use app\validate\IDMustBePositiveInt;
 use app\validate\Page;
+use app\validate\TestToken;
 use Cassandra\Exception\ProtocolException;
 use think\exception\ValidateException;
 use think\facade\Filesystem;
 use think\facade\Request;
 use app\model\Product as ProductsModel;
+use app\service\Token as TokenService;
 class Product
 {
     public function getProductsInfo(){
@@ -80,7 +82,15 @@ class Product
         return json($product);
     }
 
-    public function addOne()
+    public function addOne($name,$price,$summary)
+    {
+        (new TestToken())->goCheck();
+        $uid = TokenService::getCurrentUid();
+        (new AddProduct())->goCheck();
+        return ProductsModel::addProduct($uid, $name, $price, $summary);
+    }
+
+    public function upload()
     {
 //        (new AddProduct())->goCheck();
         $image = request()->file('image');

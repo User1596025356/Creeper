@@ -51,4 +51,15 @@ class Product extends BaseModel
         $product = self::with(['imgs.imgUrl','userinfo'])->find($id);
         return $product;
     }
+
+    public static function addProduct($uid, $name, $price, $summary)
+    {
+        $product = self::create([
+            'name' => $name,
+            'price' => $price,
+            'summary' => $summary,
+            'user_id' => $uid
+        ]);
+        return $product->id;
+    }
 }
