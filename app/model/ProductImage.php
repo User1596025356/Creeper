@@ -12,4 +12,12 @@ class ProductImage extends BaseModel
     {
         return $this->belongsTo('Image','img_id','id');
     }
+
+    public static function addProductImage($pid, $iid)
+    {
+        $Img = self::create([
+           'product_id' => $pid,
+           'img_id' => $iid
+        ]);
+    }
 }

@@ -64,6 +64,10 @@ class Product extends BaseModel
             'summary' => $summary,
             'user_id' => $uid
         ]);
-        return $product->id;
+        return json([
+            'pid' => $product->id
+        ]);
     }
+
 }
+
