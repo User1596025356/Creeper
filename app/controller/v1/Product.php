@@ -18,6 +18,7 @@ use think\facade\Filesystem;
 use think\facade\Request;
 use app\model\Product as ProductsModel;
 use app\service\Token as TokenService;
+
 class Product
 {
     public function getProductsInfo(){
@@ -60,6 +61,7 @@ class Product
 
             $data = Request::only(['paginate','page','listrows']);
             $products = ProductsModel::getRecentProduct($data['paginate'],$data['page'],$data['listrows']);
+            $num = ProductsModel::getProductsNum();
 
             if(!$products)
             {
@@ -68,6 +70,7 @@ class Product
                     'errorCode' => 40001,
                 ]);
             }
+            $products['sum'] = $num;
             return json($products);
         }
     }

@@ -8,8 +8,7 @@ class Product extends BaseModel
 {
     protected $pk = 'id';
     protected $hidden = [
-        'delete_time', 'main_img_id', 'pivot', 'from', 'category_id',
-        'create_time', 'update_time','user_id'
+        'delete_time', 'main_img_id', 'pivot', 'from', 'category_id', 'update_time','user_id'
     ];
 
     public function userinfo()
@@ -43,6 +42,11 @@ class Product extends BaseModel
     {
         $products = self::limit($count)->order('create_time desc')->with('userinfo')->select();
         return $products;
+    }
+
+    public static function getProductsNum()
+    {
+        return self::count();
     }
 
     public static function getProductDetail($id)
