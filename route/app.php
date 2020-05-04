@@ -24,3 +24,5 @@ Route::get('api/:version/testToken',':version.Test/testToken');
 Route::get('api/:version/productdetail','api/:version.Product/getOne');
 Route::post('api/:version/addProduct','api/:version.Product/addOne');
 Route::post('api/:version/upload','api/:version.Product/upload');
+Route::get('api/:version/loadcomment','api/:version.Comment/getComments');
+Route::post('api/:version/addcomment','api/:version.Comment/addComment');
