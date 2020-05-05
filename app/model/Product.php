@@ -4,6 +4,9 @@
 namespace app\model;
 
 
+use app\exception\ParameterException;
+use think\Exception;
+
 class Product extends BaseModel
 {
     protected $pk = 'id';
@@ -67,6 +70,18 @@ class Product extends BaseModel
         return json([
             'pid' => $product->id
         ]);
+    }
+
+    public static function addMainImg($pid, $savename)
+    {
+        $product = self::where('id', $pid)->find();
+        if(!$product){
+            throw new ParameterException();
+        }else{
+            $product->main_img_url = $savename;
+            $product->save();
+        }
+
     }
 
 }

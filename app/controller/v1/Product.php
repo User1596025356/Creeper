@@ -88,7 +88,7 @@ class Product
         return json($product);
     }
 
-    public function addOne($name,$price,$summary)
+    public function addOne($name, $price, $summary)
     {
         (new TestToken())->goCheck();
         $uid = TokenService::getCurrentUid();
@@ -96,7 +96,7 @@ class Product
         return ProductsModel::addProduct($uid, $name, $price, $summary);
     }
 
-    public function upload($pid)
+    public function upload($pid, $order = 0)
     {
         (new TestToken())->goCheck();
         $image = request()->file('image');
@@ -108,7 +108,11 @@ class Product
             ]])->check(['image'=>$image]);
             $savename = Filesystem::putFile('images', $image, 'md5');
             $iid = ImageModel::addImage($savename);
-            ProductImageModel::addProductImage($pid, $iid);
+            ProductImageModel::addProductImage($pid, $iid, $order);
+            if($order == 1)
+            {
+                ProductsModel::addMainImg($pid, $savename);
+            }
             return json([
                 'ImgUrl' => $savename
             ]);
