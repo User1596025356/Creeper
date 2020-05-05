@@ -9,7 +9,7 @@ use app\service\Token as TokenService;
 use app\validate\IDMustBePositiveInt;
 use app\model\Comment as CommentModel;
 use app\validate\TestToken;
-use http\Exception;
+use app\validate\CommentValidate;
 
 class Comment
 {
@@ -24,6 +24,7 @@ class Comment
     {
         (new TestToken())->gocheck();
         $uid = TokenService::getCurrentUid();
+        (new CommentValidate())->goCheck();
         $result = CommentModel::addOneComment($id, $comment, $uid);
         if($result->isEmpty())
         {

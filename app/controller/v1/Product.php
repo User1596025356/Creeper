@@ -107,6 +107,7 @@ class Product
                 'fileMime' => 'image/jpeg,image/png,image/gif',
             ]])->check(['image'=>$image]);
             $savename = Filesystem::putFile('images', $image, 'md5');
+            $savename = "/".(explode("/", $savename)[1]);
             $iid = ImageModel::addImage($savename);
             ProductImageModel::addProductImage($pid, $iid, $order);
             if($order == 1)
