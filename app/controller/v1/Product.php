@@ -4,6 +4,7 @@
 namespace app\controller\v1;
 
 
+use app\BaseController;
 use app\exception\MissException;
 use app\exception\ProductException;
 use app\model\ProductImage;
@@ -22,7 +23,7 @@ use app\model\ProductImage as ProductImageModel;
 use app\model\Image as ImageModel;
 use app\service\Token as TokenService;
 
-class Product
+class Product extends BaseController
 {
     public function getProductsInfo(){
         $validate = new IDMustBeNumber();

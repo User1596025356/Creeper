@@ -4,6 +4,7 @@
 namespace app\controller\v1;
 
 
+use app\BaseController;
 use app\exception\MissException;
 use app\service\Token as TokenService;
 use app\validate\IDMustBePositiveInt;
@@ -11,7 +12,7 @@ use app\model\Comment as CommentModel;
 use app\validate\TestToken;
 use app\validate\CommentValidate;
 
-class Comment
+class Comment extends BaseController
 {
     public function getComments($id)
     {

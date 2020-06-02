@@ -3,8 +3,10 @@ declare (strict_types = 1);
 
 namespace app;
 
+use app\model\Views;
 use think\App;
 use think\exception\ValidateException;
+use think\facade\Db;
 use think\Validate;
 
 /**
@@ -52,7 +54,9 @@ abstract class BaseController
 
     // 初始化
     protected function initialize()
-    {}
+    {
+        self::CountViews();
+    }
 
     /**
      * 验证数据
@@ -89,6 +93,22 @@ abstract class BaseController
         }
 
         return $v->failException(true)->check($data);
+    }
+
+    //统计访问量
+    protected function CountViews()
+    {
+        $date = date("Y-m-d");
+        if($views = Views::find($date))
+        {
+            $views->count = Db::raw('count+1');
+            $views->save();
+        }else{
+            $views = Views::create([
+                'date' => $date,
+                'count' => 1,
+            ]);
+        }
     }
 
 }

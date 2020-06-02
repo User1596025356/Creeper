@@ -4,12 +4,13 @@
 namespace app\controller\v1;
 
 
+use app\BaseController;
 use app\exception\MissException;
 use app\validate\IDMustBePositiveInt;
 use app\model\Banner as BannerModel;
 use think\facade\Request;
 
-class Banner
+class Banner extends BaseController
 {
     public function getBanner($id)
     {

@@ -4,10 +4,11 @@
 namespace app\controller\v1;
 
 
+use app\BaseController;
 use app\service\UserToken;
 use app\validate\TokenGet;
 use app\service\Token as TokenService;
-class Token
+class Token extends BaseController
 {
     /**
      * 用户获取令牌（登陆）

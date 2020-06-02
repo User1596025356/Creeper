@@ -26,3 +26,4 @@ Route::post('api/:version/addProduct','api/:version.Product/addOne');
 Route::post('api/:version/upload','api/:version.Product/upload');
 Route::get('api/:version/loadcomment','api/:version.Comment/getComments');
 Route::post('api/:version/addcomment','api/:version.Comment/addComment');
+Route::get('api/:version/RecentViews', 'api/:version.Views/getRecentViews');
