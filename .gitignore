@@ -4,3 +4,4 @@
 .env
 *.txt
 wx.php
+database.php
